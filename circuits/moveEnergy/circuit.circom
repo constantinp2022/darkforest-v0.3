@@ -16,6 +16,22 @@ include "mimcsponge.circom";
 include "comparators.circom";
 
 
+function isTriangle(x1,y1,x2,y2,x3,y3)
+{
+    // Calculation the area of
+    // triangle. We have skipped
+    // multiplication with 0.5
+    // to avoid floating point
+    // computations
+    var a = x1 * (y2 - y3)
+            + x2 * (y3 - y1)
+            + x3 * (y1 - y2);
+    // https://www.geeksforgeeks.org/check-whether-triangle-is-valid-or-not-if-three-points-are-given/
+
+
+    return a;
+}
+
 
 // include "../range_proof/circuit.circom"; // The code is copy paste below
 // include "../perlin/compiled.circom"
@@ -51,9 +67,6 @@ template Main() {
     signal output pub1;
     signal output pub2;
     signal output pub3;
-
-    //Variable to check if isTriangle
-    var isTriangle = 1;
 
     /* check abs(x1), abs(y1), abs(x2), abs(y2), abs(x3), abs(y3) < 2 ** 32 */
     component rp = MultiRangeProof(6, 40, 2 ** 32);
@@ -154,25 +167,14 @@ template Main() {
 
     //Check if it's not a triangle 
     //Lenght of each side is not bigger or equal with sum of the other two
-    //The math works also for square of the lenght
 
-    if(distCASquare >= distBCSquare + distABSquare)
-    {
-        isTriangle = 0;
-    }
+    assert(isTriangle(x1,y1,x2,y2,x3,y3));
 
+    //Check if the energy is enough
+    //As of my understanding the hop from A to B to C and back to A is in one move so
+    // all the sum distance should be smaller than energy points square
 
-    if(distBCSquare >= distCASquare + distABSquare)
-    {
-        isTriangle = 0;
-    }
-
-    if(distABSquare >= distBCSquare + distCASquare)
-    {
-        isTriangle = 0;
-    }
-
-    assert(isTriangle == 1);
+    assert((distCASquare + distBCSquare + distABSquare) <= (energyPoints*energyPoints));
 
     /* check MiMCSponge(x1,y1) = pub1, MiMCSponge(x2,y2) = pub2 */
     /*

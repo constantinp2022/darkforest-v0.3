@@ -44,7 +44,7 @@ cd ..
 # 1. Powers of tau
 
 # Create new powersoftau ceremonyy
-snarkjs powersoftau new bn128 12 pot12_0000.ptau -v
+snarkjs powersoftau new bn128 15 pot12_0000.ptau -v
 
 # Contribute to the created ceremony
 snarkjs powersoftau contribute pot12_0000.ptau pot12_0001.ptau --name="First contribution" -v -e=" random text"

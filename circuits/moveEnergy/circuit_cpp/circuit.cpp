@@ -21,6 +21,7 @@ void MiMCSponge_7_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::stri
 void MiMCSponge_7_run(uint ctx_index,Circom_CalcWit* ctx);
 void Main_8_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather);
 void Main_8_run(uint ctx_index,Circom_CalcWit* ctx);
+void isTriangle_0(Circom_CalcWit* ctx,FrElement* lvar,FrElement* destination,int destination_size);
 Circom_TemplateFunction _functionTable[9] = { 
 Num2Bits_0_run,
 LessThan_1_run,
@@ -48,6 +49,28 @@ uint get_size_of_constants() {return 442;}
 uint get_size_of_io_map() {return 0;}
 
 // function declarations
+void isTriangle_0(Circom_CalcWit* ctx,FrElement* lvar,FrElement* destination,int destination_size){
+FrElement* circuitConstants = ctx->circuitConstants;
+FrElement expaux[8];
+{
+PFrElement aux_dest = &lvar[6];
+// load src
+Fr_sub(&expaux[4],&lvar[3],&lvar[5]); // line circom 26
+Fr_mul(&expaux[2],&lvar[0],&expaux[4]); // line circom 26
+Fr_sub(&expaux[5],&lvar[5],&lvar[1]); // line circom 27
+Fr_mul(&expaux[3],&lvar[2],&expaux[5]); // line circom 27
+Fr_add(&expaux[1],&expaux[2],&expaux[3]); // line circom 26
+Fr_sub(&expaux[4],&lvar[1],&lvar[3]); // line circom 28
+Fr_mul(&expaux[2],&lvar[4],&expaux[4]); // line circom 28
+Fr_add(&expaux[0],&expaux[1],&expaux[2]); // line circom 26
+// end load src
+Fr_copy(aux_dest,&expaux[0]);
+}
+// return bucket
+Fr_copy(destination,&lvar[6]);
+return;
+}
+
 // template declarations
 void Num2Bits_0_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather){
 ctx->componentMemory[coffset].templateId = 0;
@@ -270,7 +293,7 @@ uint cmp_index_ref = 0;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 1];
 // load src
-Fr_add(&expaux[0],&circuitConstants[5],&signalValues[mySignalStart + 0]); // line circom 222
+Fr_add(&expaux[0],&circuitConstants[5],&signalValues[mySignalStart + 0]); // line circom 224
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -289,8 +312,8 @@ Fr_copy(aux_dest,&circuitConstants[1]);
 assert(!(--ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
 LessThan_1_run(mySubcomponents[cmp_index_ref],ctx);
 }
-Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 0],&circuitConstants[1]); // line circom 224
-if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 224. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
+Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].signalStart + 0],&circuitConstants[1]); // line circom 226
+if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 226. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
 assert(Fr_isTrue(&expaux[0]));
 {
 uint cmp_index_ref = 1;
@@ -308,7 +331,7 @@ uint cmp_index_ref = 1;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
-Fr_add(&expaux[0],&circuitConstants[5],&signalValues[mySignalStart + 0]); // line circom 227
+Fr_add(&expaux[0],&circuitConstants[5],&signalValues[mySignalStart + 0]); // line circom 229
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -316,8 +339,8 @@ Fr_copy(aux_dest,&expaux[0]);
 assert(!(--ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
 LessThan_1_run(mySubcomponents[cmp_index_ref],ctx);
 }
-Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0],&circuitConstants[1]); // line circom 228
-if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 228. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
+Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0],&circuitConstants[1]); // line circom 230
+if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 230. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
 assert(Fr_isTrue(&expaux[0]));
 }
 
@@ -381,7 +404,7 @@ PFrElement aux_dest = &lvar[3];
 // end load src
 Fr_copy(aux_dest,&circuitConstants[1]);
 }
-Fr_lt(&expaux[0],&lvar[3],&circuitConstants[7]); // line circom 237
+Fr_lt(&expaux[0],&lvar[3],&circuitConstants[7]); // line circom 239
 while(Fr_isTrue(&expaux[0])){
 {
 uint cmp_index_ref = ((1 * Fr_toInt(&lvar[3])) + 0);
@@ -400,11 +423,11 @@ RangeProof_2_run(mySubcomponents[cmp_index_ref],ctx);
 {
 PFrElement aux_dest = &lvar[3];
 // load src
-Fr_add(&expaux[0],&lvar[3],&circuitConstants[2]); // line circom 237
+Fr_add(&expaux[0],&lvar[3],&circuitConstants[2]); // line circom 239
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
-Fr_lt(&expaux[0],&lvar[3],&circuitConstants[7]); // line circom 237
+Fr_lt(&expaux[0],&lvar[3],&circuitConstants[7]); // line circom 239
 }
 }
 
@@ -2061,19 +2084,19 @@ uint sub_component_aux;
 PFrElement aux_dest = &lvar[0];
 // load src
 // end load src
-Fr_copy(aux_dest,&circuitConstants[13]);
+Fr_copy(aux_dest,&circuitConstants[10]);
 }
 {
 PFrElement aux_dest = &lvar[1];
 // load src
 // end load src
-Fr_copy(aux_dest,&circuitConstants[10]);
+Fr_copy(aux_dest,&circuitConstants[2]);
 }
 {
 PFrElement aux_dest = &lvar[2];
 // load src
 // end load src
-Fr_copy(aux_dest,&circuitConstants[2]);
+Fr_copy(aux_dest,&circuitConstants[13]);
 }
 {
 uint aux_create = 0;
@@ -2214,8 +2237,8 @@ u64 myId = ctx_index;
 u32* mySubcomponents = ctx->componentMemory[ctx_index].subcomponents;
 FrElement* circuitConstants = ctx->circuitConstants;
 std::string* listOfTemplateMessages = ctx->listOfTemplateMessages;
-FrElement expaux[5];
-FrElement lvar[1];
+FrElement expaux[8];
+FrElement lvar[0];
 uint sub_component_aux;
 {
 uint aux_create = 0;
@@ -2326,12 +2349,6 @@ aux_cmp_num += 3;
 }
 }
 {
-PFrElement aux_dest = &lvar[0];
-// load src
-// end load src
-Fr_copy(aux_dest,&circuitConstants[2]);
-}
-{
 uint cmp_index_ref = 0;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 0];
@@ -2401,21 +2418,21 @@ MultiRangeProof_3_run(mySubcomponents[cmp_index_ref],ctx);
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 13];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 5],&signalValues[mySignalStart + 5]); // line circom 72
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 5],&signalValues[mySignalStart + 5]); // line circom 85
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 14];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 6],&signalValues[mySignalStart + 6]); // line circom 73
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 6],&signalValues[mySignalStart + 6]); // line circom 86
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 15];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 10],&signalValues[mySignalStart + 10]); // line circom 74
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 10],&signalValues[mySignalStart + 10]); // line circom 87
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2424,7 +2441,7 @@ uint cmp_index_ref = 1;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 1];
 // load src
-Fr_add(&expaux[0],&signalValues[mySignalStart + 13],&signalValues[mySignalStart + 14]); // line circom 75
+Fr_add(&expaux[0],&signalValues[mySignalStart + 13],&signalValues[mySignalStart + 14]); // line circom 88
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2443,20 +2460,20 @@ Fr_copy(aux_dest,&signalValues[mySignalStart + 15]);
 assert(!(--ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
 LessThan_5_run(mySubcomponents[cmp_index_ref],ctx);
 }
-Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0],&circuitConstants[2]); // line circom 77
-if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 77. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
+Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[1]].signalStart + 0],&circuitConstants[2]); // line circom 90
+if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 90. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
 assert(Fr_isTrue(&expaux[0]));
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 16];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 7],&signalValues[mySignalStart + 7]); // line circom 86
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 7],&signalValues[mySignalStart + 7]); // line circom 99
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 17];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 8],&signalValues[mySignalStart + 8]); // line circom 87
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 8],&signalValues[mySignalStart + 8]); // line circom 100
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2465,7 +2482,7 @@ uint cmp_index_ref = 2;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 1];
 // load src
-Fr_add(&expaux[0],&signalValues[mySignalStart + 16],&signalValues[mySignalStart + 17]); // line circom 88
+Fr_add(&expaux[0],&signalValues[mySignalStart + 16],&signalValues[mySignalStart + 17]); // line circom 101
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2484,41 +2501,41 @@ Fr_copy(aux_dest,&signalValues[mySignalStart + 15]);
 assert(!(--ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
 LessThan_5_run(mySubcomponents[cmp_index_ref],ctx);
 }
-Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[2]].signalStart + 0],&circuitConstants[2]); // line circom 90
-if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 90. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
+Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[2]].signalStart + 0],&circuitConstants[2]); // line circom 103
+if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 103. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
 assert(Fr_isTrue(&expaux[0]));
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 18];
 // load src
-Fr_sub(&expaux[0],&signalValues[mySignalStart + 3],&signalValues[mySignalStart + 5]); // line circom 97
+Fr_sub(&expaux[0],&signalValues[mySignalStart + 3],&signalValues[mySignalStart + 5]); // line circom 110
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 19];
 // load src
-Fr_sub(&expaux[0],&signalValues[mySignalStart + 4],&signalValues[mySignalStart + 6]); // line circom 99
+Fr_sub(&expaux[0],&signalValues[mySignalStart + 4],&signalValues[mySignalStart + 6]); // line circom 112
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 21];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 18],&signalValues[mySignalStart + 18]); // line circom 106
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 18],&signalValues[mySignalStart + 18]); // line circom 119
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 22];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 19],&signalValues[mySignalStart + 19]); // line circom 107
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 19],&signalValues[mySignalStart + 19]); // line circom 120
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 20];
 // load src
-Fr_add(&expaux[0],&signalValues[mySignalStart + 21],&signalValues[mySignalStart + 22]); // line circom 108
+Fr_add(&expaux[0],&signalValues[mySignalStart + 21],&signalValues[mySignalStart + 22]); // line circom 121
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2538,8 +2555,8 @@ uint cmp_index_ref = 3;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
-Fr_mul(&expaux[1],&signalValues[mySignalStart + 11],&signalValues[mySignalStart + 11]); // line circom 111
-Fr_add(&expaux[0],&expaux[1],&circuitConstants[2]); // line circom 111
+Fr_mul(&expaux[1],&signalValues[mySignalStart + 11],&signalValues[mySignalStart + 11]); // line circom 124
+Fr_add(&expaux[0],&expaux[1],&circuitConstants[2]); // line circom 124
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2547,41 +2564,41 @@ Fr_copy(aux_dest,&expaux[0]);
 assert(!(--ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
 LessThan_5_run(mySubcomponents[cmp_index_ref],ctx);
 }
-Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[3]].signalStart + 0],&circuitConstants[2]); // line circom 112
-if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 112. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
+Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[3]].signalStart + 0],&circuitConstants[2]); // line circom 125
+if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 125. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
 assert(Fr_isTrue(&expaux[0]));
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 23];
 // load src
-Fr_sub(&expaux[0],&signalValues[mySignalStart + 5],&signalValues[mySignalStart + 7]); // line circom 117
+Fr_sub(&expaux[0],&signalValues[mySignalStart + 5],&signalValues[mySignalStart + 7]); // line circom 130
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 24];
 // load src
-Fr_sub(&expaux[0],&signalValues[mySignalStart + 6],&signalValues[mySignalStart + 8]); // line circom 119
+Fr_sub(&expaux[0],&signalValues[mySignalStart + 6],&signalValues[mySignalStart + 8]); // line circom 132
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 26];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 23],&signalValues[mySignalStart + 23]); // line circom 126
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 23],&signalValues[mySignalStart + 23]); // line circom 139
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 27];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 24],&signalValues[mySignalStart + 24]); // line circom 127
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 24],&signalValues[mySignalStart + 24]); // line circom 140
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 25];
 // load src
-Fr_add(&expaux[0],&signalValues[mySignalStart + 26],&signalValues[mySignalStart + 27]); // line circom 128
+Fr_add(&expaux[0],&signalValues[mySignalStart + 26],&signalValues[mySignalStart + 27]); // line circom 141
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2601,8 +2618,8 @@ uint cmp_index_ref = 4;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
-Fr_mul(&expaux[1],&signalValues[mySignalStart + 11],&signalValues[mySignalStart + 11]); // line circom 132
-Fr_add(&expaux[0],&expaux[1],&circuitConstants[2]); // line circom 132
+Fr_mul(&expaux[1],&signalValues[mySignalStart + 11],&signalValues[mySignalStart + 11]); // line circom 145
+Fr_add(&expaux[0],&expaux[1],&circuitConstants[2]); // line circom 145
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2610,41 +2627,41 @@ Fr_copy(aux_dest,&expaux[0]);
 assert(!(--ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
 LessThan_5_run(mySubcomponents[cmp_index_ref],ctx);
 }
-Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[4]].signalStart + 0],&circuitConstants[2]); // line circom 133
-if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 133. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
+Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[4]].signalStart + 0],&circuitConstants[2]); // line circom 146
+if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 146. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
 assert(Fr_isTrue(&expaux[0]));
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 28];
 // load src
-Fr_sub(&expaux[0],&signalValues[mySignalStart + 7],&signalValues[mySignalStart + 3]); // line circom 138
+Fr_sub(&expaux[0],&signalValues[mySignalStart + 7],&signalValues[mySignalStart + 3]); // line circom 151
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 29];
 // load src
-Fr_sub(&expaux[0],&signalValues[mySignalStart + 8],&signalValues[mySignalStart + 4]); // line circom 140
+Fr_sub(&expaux[0],&signalValues[mySignalStart + 8],&signalValues[mySignalStart + 4]); // line circom 153
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 31];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 28],&signalValues[mySignalStart + 28]); // line circom 147
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 28],&signalValues[mySignalStart + 28]); // line circom 160
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 32];
 // load src
-Fr_mul(&expaux[0],&signalValues[mySignalStart + 29],&signalValues[mySignalStart + 29]); // line circom 148
+Fr_mul(&expaux[0],&signalValues[mySignalStart + 29],&signalValues[mySignalStart + 29]); // line circom 161
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
 {
 PFrElement aux_dest = &signalValues[mySignalStart + 30];
 // load src
-Fr_add(&expaux[0],&signalValues[mySignalStart + 31],&signalValues[mySignalStart + 32]); // line circom 149
+Fr_add(&expaux[0],&signalValues[mySignalStart + 31],&signalValues[mySignalStart + 32]); // line circom 162
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2664,8 +2681,8 @@ uint cmp_index_ref = 5;
 {
 PFrElement aux_dest = &ctx->signalValues[ctx->componentMemory[mySubcomponents[cmp_index_ref]].signalStart + 2];
 // load src
-Fr_mul(&expaux[1],&signalValues[mySignalStart + 11],&signalValues[mySignalStart + 11]); // line circom 152
-Fr_add(&expaux[0],&expaux[1],&circuitConstants[2]); // line circom 152
+Fr_mul(&expaux[1],&signalValues[mySignalStart + 11],&signalValues[mySignalStart + 11]); // line circom 165
+Fr_add(&expaux[0],&expaux[1],&circuitConstants[2]); // line circom 165
 // end load src
 Fr_copy(aux_dest,&expaux[0]);
 }
@@ -2673,41 +2690,42 @@ Fr_copy(aux_dest,&expaux[0]);
 assert(!(--ctx->componentMemory[mySubcomponents[cmp_index_ref]].inputCounter));
 LessThan_5_run(mySubcomponents[cmp_index_ref],ctx);
 }
-Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[5]].signalStart + 0],&circuitConstants[2]); // line circom 153
-if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 153. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
+Fr_eq(&expaux[0],&ctx->signalValues[ctx->componentMemory[mySubcomponents[5]].signalStart + 0],&circuitConstants[2]); // line circom 166
+if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 166. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
 assert(Fr_isTrue(&expaux[0]));
-Fr_add(&expaux[2],&signalValues[mySignalStart + 25],&signalValues[mySignalStart + 20]); // line circom 159
-Fr_geq(&expaux[0],&signalValues[mySignalStart + 30],&expaux[2]); // line circom 159
-if(Fr_isTrue(&expaux[0])){
 {
-PFrElement aux_dest = &lvar[0];
-// load src
-// end load src
-Fr_copy(aux_dest,&circuitConstants[1]);
+
+// start of call bucket
+FrElement lvarcall[7];
+// copying argument 0
+Fr_copy(&lvarcall[0],&signalValues[mySignalStart + 3]);
+// end copying argument 0
+// copying argument 1
+Fr_copy(&lvarcall[1],&signalValues[mySignalStart + 4]);
+// end copying argument 1
+// copying argument 2
+Fr_copy(&lvarcall[2],&signalValues[mySignalStart + 5]);
+// end copying argument 2
+// copying argument 3
+Fr_copy(&lvarcall[3],&signalValues[mySignalStart + 6]);
+// end copying argument 3
+// copying argument 4
+Fr_copy(&lvarcall[4],&signalValues[mySignalStart + 7]);
+// end copying argument 4
+// copying argument 5
+Fr_copy(&lvarcall[5],&signalValues[mySignalStart + 8]);
+// end copying argument 5
+isTriangle_0(ctx,lvarcall,&expaux[0],1);
+// end call bucket
 }
-}
-Fr_add(&expaux[2],&signalValues[mySignalStart + 30],&signalValues[mySignalStart + 20]); // line circom 165
-Fr_geq(&expaux[0],&signalValues[mySignalStart + 25],&expaux[2]); // line circom 165
-if(Fr_isTrue(&expaux[0])){
-{
-PFrElement aux_dest = &lvar[0];
-// load src
-// end load src
-Fr_copy(aux_dest,&circuitConstants[1]);
-}
-}
-Fr_add(&expaux[2],&signalValues[mySignalStart + 25],&signalValues[mySignalStart + 30]); // line circom 170
-Fr_geq(&expaux[0],&signalValues[mySignalStart + 20],&expaux[2]); // line circom 170
-if(Fr_isTrue(&expaux[0])){
-{
-PFrElement aux_dest = &lvar[0];
-// load src
-// end load src
-Fr_copy(aux_dest,&circuitConstants[1]);
-}
-}
-Fr_eq(&expaux[0],&lvar[0],&circuitConstants[2]); // line circom 175
-if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 175. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
+
+if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 171. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
+assert(Fr_isTrue(&expaux[0]));
+Fr_add(&expaux[2],&signalValues[mySignalStart + 30],&signalValues[mySignalStart + 25]); // line circom 177
+Fr_add(&expaux[1],&expaux[2],&signalValues[mySignalStart + 20]); // line circom 177
+Fr_mul(&expaux[2],&signalValues[mySignalStart + 12],&signalValues[mySignalStart + 12]); // line circom 177
+Fr_leq(&expaux[0],&expaux[1],&expaux[2]); // line circom 177
+if (!Fr_isTrue(&expaux[0])) std::cout << "Failed assert in template " << myTemplateName << " line 177. " <<  "Followed trace: " << ctx->getTrace(myId) << std::endl;
 assert(Fr_isTrue(&expaux[0]));
 {
 uint cmp_index_ref = 6;
