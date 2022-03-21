@@ -1,4 +1,4 @@
-include "../../client/node_modules/circomlib/circuits/comparators.circom"
+include "../../client/node_modules/circomlib/circuits/comparators.circom";
 
 // NB: RangeProof is inclusive.
 // input: field element, whose abs is claimed to be less than max_abs_value
@@ -13,11 +13,11 @@ template RangeProof(bits, max_abs_value) {
 
     lowerBound.in[0] <== max_abs_value + in; 
     lowerBound.in[1] <== 0;
-    lowerBound.out === 0
+    lowerBound.out === 0;
 
     upperBound.in[0] <== 2 * max_abs_value;
     upperBound.in[1] <== max_abs_value + in; 
-    upperBound.out === 0
+    upperBound.out === 0;
 }
 
 // input: n field elements, whose abs are claimed to be less than max_abs_value
