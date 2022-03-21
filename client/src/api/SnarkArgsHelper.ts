@@ -34,6 +34,7 @@ const zkSnark = require('snarkjs');
 class SnarkArgsHelper {
   private readonly initCircuit: Circuit;
   private readonly moveCircuit: Circuit;
+  private readonly moveEnergyCircuit: Circuit;
   private readonly provingKeyInit: ArrayBuffer;
   private readonly provingKeyMove: ArrayBuffer;
   private readonly useMockHash: boolean;
@@ -43,10 +44,12 @@ class SnarkArgsHelper {
     provingKeyMove: ArrayBuffer,
     initCircuit: CircuitDef,
     moveCircuit: CircuitDef,
+    moveEnergyCircuit: CircuitDef,
     useMockHash: boolean
   ) {
     this.initCircuit = new zkSnark.Circuit(initCircuit);
     this.moveCircuit = new zkSnark.Circuit(moveCircuit);
+    this.moveEnergyCircuit = new zkSnark.Circuit(moveEnergyCircuit);
     this.provingKeyInit = provingKeyInit;
     this.provingKeyMove = provingKeyMove;
     this.useMockHash = useMockHash;
@@ -66,6 +69,9 @@ class SnarkArgsHelper {
     const moveCircuit: CircuitDef = await fetch(
       './public/circuits/move/circuit.json'
     ).then((x) => x.json());
+    const moveEnergyCircuit: CircuitDef = await fetch(
+      './public/circuits/moveEnergy/circuit.json'
+    ).then((x) => x.json());
 
     const provingKeyInitBin = await fetch('./public/proving_key_init.bin');
     const provingKeyInit = await provingKeyInitBin.arrayBuffer();
@@ -77,6 +83,7 @@ class SnarkArgsHelper {
       provingKeyMove,
       initCircuit,
       moveCircuit,
+      moveEnergyCircuit,
       fakeHash
     );
 
